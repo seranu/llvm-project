@@ -2459,6 +2459,29 @@ struct FormatStyle {
   /// \version 12
   EmptyLineBeforeAccessModifierStyle EmptyLineBeforeAccessModifier;
 
+  /// \brief Number of empty lines after top level comment.
+  /// If set, determines the number of empty lines to insert/keep after the top
+  /// level comment. Limited by MaxEmptyLinesToKeep.
+  /// Example:
+  /// EmptyLinesAfterTopLevelComment = 1
+  /// \code
+  ///    /* LICENSE TEXT */
+  ///
+  ///    #include <string>
+  ///    class Test {};
+  ///
+  /// \endcode
+  /// vs EmptyLinesAfterTopLevelComment = 2
+  /// \code
+  ///    /* License Text */
+  ///
+  ///
+  ///    #include <string>
+  ///    class Test {};
+  /// \endcode
+  /// \version 1
+  std::optional<unsigned> EmptyLinesAfterTopLevelComment;
+
   /// If ``true``, clang-format detects whether function calls and
   /// definitions are formatted with one parameter per line.
   ///
@@ -4832,6 +4855,7 @@ struct FormatStyle {
            DisableFormat == R.DisableFormat &&
            EmptyLineAfterAccessModifier == R.EmptyLineAfterAccessModifier &&
            EmptyLineBeforeAccessModifier == R.EmptyLineBeforeAccessModifier &&
+           EmptyLinesAfterTopLevelComment == R.EmptyLinesAfterTopLevelComment &&
            ExperimentalAutoDetectBinPacking ==
                R.ExperimentalAutoDetectBinPacking &&
            FixNamespaceComments == R.FixNamespaceComments &&
